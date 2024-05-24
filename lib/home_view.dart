@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 class HomePage extends StatelessWidget {
   final List<String> products = ['Apple', 'Banana', 'Orange'];
 
+  HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             onPressed: () {
               Navigator.pushNamed(context, '/cart');
             },
@@ -23,7 +25,7 @@ class HomePage extends StatelessWidget {
           return ListTile(
             title: Text(products[index]),
             trailing: IconButton(
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
               onPressed: () {
                 // Add product to cart
                 ScaffoldMessenger.of(context).showSnackBar(
