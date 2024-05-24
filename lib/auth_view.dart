@@ -8,9 +8,9 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
 
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   bool isErrorVisible = false;
 
@@ -40,9 +40,13 @@ class _AuthPageState extends State<AuthPage> {
                     color: const Color(0xFFC13D34),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Text(
-                    'Invalid username or password',
-                    style: TextStyle(
+                  child: Text(
+                    usernameController.text.length < 8
+                        ? 'Username cannot be smaller than 8 characters!'
+                        : !isPassword(passwordController.text)
+                            ? 'Password must contain min 8 chars, at least one letter and one number.'
+                            : 'Invalid username or password',
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
@@ -55,7 +59,7 @@ class _AuthPageState extends State<AuthPage> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.06,
               child: TextField(
-                controller: _usernameController,
+                controller: usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
                   labelStyle:
@@ -81,7 +85,7 @@ class _AuthPageState extends State<AuthPage> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.06,
               child: TextField(
-                controller: _passwordController,
+                controller: passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
                   labelStyle:
@@ -107,8 +111,8 @@ class _AuthPageState extends State<AuthPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                if (_usernameController.text == 'user' &&
-                    _passwordController.text == 'password') {
+                if (usernameController.text == 'username' &&
+                    passwordController.text == 'Pass1234') {
                   setState(() {
                     isErrorVisible = false;
                   });
@@ -139,4 +143,10 @@ class _AuthPageState extends State<AuthPage> {
       ),
     );
   }
+}
+
+bool isPassword(String password) {
+  RegExp regex = RegExp(
+      r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'); //=> en az 8 karakter en fazla 16 karakter olarak ayarlandı
+  return regex.hasMatch(password);
 }
