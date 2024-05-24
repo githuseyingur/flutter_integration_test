@@ -92,18 +92,18 @@ void main() {
       expect(find.text('Apple added to cart'), findsOneWidget);
       debugPrint('Test 1 Passed : Add to Cart Snackbar');
       // TEST-2 : SHOW CART
+      await Future.delayed(const Duration(seconds: 5));
+
       await tester.tap(find.byIcon(Icons.shopping_cart));
       await tester.pumpAndSettle();
       expect(find.text('Cart'), findsOneWidget);
       expect(find.text('Apple'), findsOneWidget);
       expect(find.text('Banana'), findsOneWidget);
       debugPrint('Test 2 Passed : Products in Cart');
-      // Checkout butonuna tıkla
-      // await tester.tap(find.b);
-      // await tester.pumpAndSettle();
-
-      // // Snackbar'ın çıktığını kontrol edin
-      // expect(find.text('Checkout successful'), findsOneWidget);
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+      // Snackbar'ın çıktığını kontrol edin
+      expect(find.text('Checkout successful'), findsOneWidget);
     });
   });
 }
