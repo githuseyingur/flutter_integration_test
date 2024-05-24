@@ -6,34 +6,41 @@ import 'package:integrationtest/main.dart' as app;
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('END TO END', () {
-    //group: organizes related tests together for better structure and readability.
+  group('APP TEST:', () {
+    // group: organizes related tests together for better structure and readability.
     testWidgets('Full App Test', (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
+
+      // LOGIN TEST
+      debugPrint('LOGIN TEST');
       expect(find.text('LOG IN'), findsWidgets);
-      // Giriş yapma ekranında kullanıcı adını ve şifreyi gir
+      // TEST-1 : Username validation error
       await tester.enterText(find.byType(TextField).at(0), 'user');
       await Future.delayed(const Duration(seconds: 2));
       await tester.enterText(find.byType(TextField).at(1), 'Pass1234');
       await Future.delayed(const Duration(seconds: 3));
       // Giriş butonuna tıkla
       await tester.tap(find.byType(ElevatedButton));
-      await tester.pump();
+      await tester.pumpAndSettle();
       expect(find.text('Username cannot be smaller than 8 characters!'),
           findsOneWidget);
       await Future.delayed(const Duration(seconds: 3));
-      await tester.pump();
+      await tester.pumpAndSettle();
       expect(find.text('Username cannot be smaller than 8 characters!'),
           findsNothing);
       debugPrint('Test 1 Passed : Log in (Username Validation Error Message)');
-
-      // Giriş yapma ekranında kullanıcı adını ve şifreyi gir
+      // TEST-2 : Password Validation Error
+      await tester.enterText(find.byType(TextField).at(0), '');
+      await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextField).at(0), 'username');
+      await tester.pumpAndSettle();
       await Future.delayed(const Duration(seconds: 2));
+      await tester.enterText(find.byType(TextField).at(1), '');
+      await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextField).at(1), 'Password');
+      await tester.pumpAndSettle();
       await Future.delayed(const Duration(seconds: 3));
-      // Giriş butonuna tıkla
       await tester.tap(find.byType(ElevatedButton));
       await tester.pump();
       expect(
@@ -47,48 +54,54 @@ void main() {
               'Password must contain min 8 chars, at least one letter and one number.'),
           findsNothing);
       debugPrint('Test 2 Passed : Log in (Password Validation Error Message)');
-
-      // Giriş yapma ekranında kullanıcı adını ve şifreyi gir
+      // TEST-3 : Invalid Username or Password
+      await tester.enterText(find.byType(TextField).at(0), '');
+      await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextField).at(0), 'username');
+      await tester.pumpAndSettle();
       await Future.delayed(const Duration(seconds: 2));
+      await tester.enterText(find.byType(TextField).at(1), '');
+      await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextField).at(1), 'Pass12345');
+      await tester.pumpAndSettle();
       await Future.delayed(const Duration(seconds: 3));
       // Giriş butonuna tıkla
       await tester.tap(find.byType(ElevatedButton));
       await tester.pump();
-      expect(find.text('Invalid username or password'), findsNothing);
+      expect(find.text('Invalid username or password'), findsOneWidget);
       await Future.delayed(const Duration(seconds: 3));
       await tester.pump();
       expect(find.text('Invalid username or password'), findsNothing);
       debugPrint('Test 3 Passed : Log in (Wrong Password or Username)');
-
+      // TEST-4: Successful Login
       await tester.enterText(find.byType(TextField).at(0), 'username');
       await Future.delayed(const Duration(seconds: 2));
       await tester.enterText(find.byType(TextField).at(1), 'Pass1234');
       await Future.delayed(const Duration(seconds: 3));
       // Giriş butonuna tıkla
       await tester.tap(find.byType(ElevatedButton));
-      await tester.pump();
+      await tester.pumpAndSettle();
       // Anasayfada ürünleri ekrana getir
       expect(find.text('Home'), findsOneWidget);
       expect(find.text('Apple'), findsOneWidget);
       expect(find.text('Banana'), findsOneWidget);
       expect(find.text('Orange'), findsOneWidget);
-      debugPrint('Test 4 Passed : Log in Successful');
-      // Bir ürünü sepete ekle
+      debugPrint('Test 4 Passed : Successful Login');
+      // CART TEST
+      debugPrint('CART TEST');
+      // TEST-1 : Add to Cart
       await Future.delayed(const Duration(seconds: 2));
       await tester.tap(find.widgetWithIcon(IconButton, Icons.add).first);
       await tester.pumpAndSettle();
       expect(find.text('Apple added to cart'), findsOneWidget);
-      debugPrint('Test 2 Passed : Add to Cart Snackbar');
-      // Sepet sayfasına git
+      debugPrint('Test 1 Passed : Add to Cart Snackbar');
+      // TEST-2 : SHOW CART
       await tester.tap(find.byIcon(Icons.shopping_cart));
       await tester.pumpAndSettle();
-      // Sepet sayfasında ürünlerin olduğunu kontrol et
       expect(find.text('Cart'), findsOneWidget);
       expect(find.text('Apple'), findsOneWidget);
       expect(find.text('Banana'), findsOneWidget);
-
+      debugPrint('Test 2 Passed : Products in Cart');
       // Checkout butonuna tıkla
       // await tester.tap(find.b);
       // await tester.pumpAndSettle();
