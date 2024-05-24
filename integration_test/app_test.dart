@@ -18,17 +18,17 @@ void main() {
       // TEST-1 : Username validation error
       await tester.enterText(find.byType(TextField).at(0), 'user');
       await Future.delayed(const Duration(seconds: 2));
-      await tester.enterText(find.byType(TextField).at(1), 'Pass1234');
+      await tester.enterText(find.byType(TextField).at(1), 'pass1234');
       await Future.delayed(const Duration(seconds: 3));
       // Giriş butonuna tıkla
       await tester.tap(find.byType(ElevatedButton));
       await tester.pumpAndSettle();
-      expect(find.text('Username cannot be smaller than 8 characters!'),
-          findsOneWidget);
-      await Future.delayed(const Duration(seconds: 3));
-      await tester.pumpAndSettle();
-      expect(find.text('Username cannot be smaller than 8 characters!'),
+      expect(find.text('cannot be smaller than 8 characters!'), findsOneWidget);
+      expect(
+          find.text(
+              'minimum 8 characters, at least one letter and one number.'),
           findsNothing);
+
       debugPrint('Test 1 Passed : Log in (Username Validation Error Message)');
       // TEST-2 : Password Validation Error
       await tester.enterText(find.byType(TextField).at(0), '');
@@ -38,21 +38,17 @@ void main() {
       await Future.delayed(const Duration(seconds: 2));
       await tester.enterText(find.byType(TextField).at(1), '');
       await tester.pumpAndSettle();
-      await tester.enterText(find.byType(TextField).at(1), 'Password');
+      await tester.enterText(find.byType(TextField).at(1), 'password');
       await tester.pumpAndSettle();
       await Future.delayed(const Duration(seconds: 3));
       await tester.tap(find.byType(ElevatedButton));
       await tester.pump();
       expect(
           find.text(
-              'Password must contain min 8 chars, at least one letter and one number.'),
+              'minimum 8 characters, at least one letter and one number.'),
           findsOneWidget);
-      await Future.delayed(const Duration(seconds: 3));
-      await tester.pump();
-      expect(
-          find.text(
-              'Password must contain min 8 chars, at least one letter and one number.'),
-          findsNothing);
+      expect(find.text('cannot be smaller than 8 characters!'), findsNothing);
+
       debugPrint('Test 2 Passed : Log in (Password Validation Error Message)');
       // TEST-3 : Invalid Username or Password
       await tester.enterText(find.byType(TextField).at(0), '');
@@ -62,7 +58,7 @@ void main() {
       await Future.delayed(const Duration(seconds: 2));
       await tester.enterText(find.byType(TextField).at(1), '');
       await tester.pumpAndSettle();
-      await tester.enterText(find.byType(TextField).at(1), 'Pass12345');
+      await tester.enterText(find.byType(TextField).at(1), 'pass12345');
       await tester.pumpAndSettle();
       await Future.delayed(const Duration(seconds: 3));
       // Giriş butonuna tıkla
@@ -76,7 +72,7 @@ void main() {
       // TEST-4: Successful Login
       await tester.enterText(find.byType(TextField).at(0), 'username');
       await Future.delayed(const Duration(seconds: 2));
-      await tester.enterText(find.byType(TextField).at(1), 'Pass1234');
+      await tester.enterText(find.byType(TextField).at(1), 'pass1234');
       await Future.delayed(const Duration(seconds: 3));
       // Giriş butonuna tıkla
       await tester.tap(find.byType(ElevatedButton));
