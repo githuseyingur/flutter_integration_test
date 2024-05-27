@@ -48,20 +48,13 @@ class CartPage extends StatelessWidget {
                                 child: Text(ProductModel.CartProductList.toSet()
                                     .toList()[index]
                                     .name)),
-                            const Text(
-                              'amount:',
-                              style: TextStyle(
-                                color: Colors.black45,
+                            Text(
+                              'amount:${ProductModel.CartProductList.where((element) => element.name == ProductModel.CartProductList.toSet().toList()[index].name).toList().length.toString()}',
+                              style: const TextStyle(
+                                color: Colors.black54,
                                 fontSize: 10,
                               ),
                             ),
-                            Text(
-                                ProductModel.CartProductList.where((element) =>
-                                    element.name ==
-                                    ProductModel.CartProductList.toSet()
-                                        .toList()[index]
-                                        .name).toList().length.toString(),
-                                style: const TextStyle(fontSize: 14))
                           ],
                         ),
                         trailing: Text(
