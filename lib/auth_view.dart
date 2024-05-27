@@ -11,9 +11,7 @@ class _AuthPageState extends State<AuthPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   bool isErrorVisible = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +57,7 @@ class _AuthPageState extends State<AuthPage> {
                   if (value!.length < 8) {
                     return 'cannot be smaller than 8 characters!';
                   }
+                  return null;
                 },
                 controller: usernameController,
                 decoration: InputDecoration(
