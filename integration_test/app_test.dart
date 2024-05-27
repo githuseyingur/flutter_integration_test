@@ -49,7 +49,7 @@ void main() {
           findsOneWidget);
       expect(find.text('cannot be smaller than 8 characters!'), findsNothing);
 
-      debugPrint('Test 2 Passed! : Password Validation Error Message');
+      debugPrint('Test 2 Passed! : Password Validation Error');
       // TEST-3 : Invalid Username or Password
       await tester.enterText(find.byType(TextField).at(0), '');
       await tester.pumpAndSettle();
@@ -83,8 +83,8 @@ void main() {
       expect(find.text('Table'), findsOneWidget);
       expect(find.text('Earphone'), findsOneWidget);
       debugPrint('Test 4 Passed! : Login with username & pass1234');
-      debugPrint('All Tests Passed!');
-      debugPrint('Directing to Home Page...');
+      debugPrint('LOGIN - All Tests Passed!\n');
+      debugPrint('Directing to Home Page...\n');
       // CART TEST
       debugPrint('CART TEST');
       // TEST-1 : Add to Cart
@@ -141,7 +141,7 @@ void main() {
       // Snackbar'ın çıktığını kontrol edin
       expect(find.text('Payment Successful'), findsOneWidget);
       debugPrint('Test 2 Passed! : Cart Informations');
-      debugPrint('All Tests Passed!');
+      debugPrint('CART - All Tests Passed!');
     });
   });
 }
