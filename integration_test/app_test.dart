@@ -11,7 +11,6 @@ void main() {
     testWidgets('Full App Test', (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
-
       // LOGIN TEST
       debugPrint('LOGIN TEST');
       expect(find.text('LOG IN'), findsWidgets);
@@ -20,7 +19,6 @@ void main() {
       await Future.delayed(const Duration(seconds: 2));
       await tester.enterText(find.byType(TextField).at(1), 'pass1234');
       await Future.delayed(const Duration(seconds: 3));
-      // Giriş butonuna tıkla
       await tester.tap(find.byType(ElevatedButton));
       await tester.pumpAndSettle();
       expect(find.text('cannot be smaller than 8 characters!'), findsOneWidget);
@@ -61,7 +59,6 @@ void main() {
       await tester.enterText(find.byType(TextField).at(1), 'pass12345');
       await tester.pumpAndSettle();
       await Future.delayed(const Duration(seconds: 3));
-      // Giriş butonuna tıkla
       await tester.tap(find.byType(ElevatedButton));
       await tester.pump();
       expect(find.text('Invalid username or password'), findsOneWidget);
@@ -74,17 +71,16 @@ void main() {
       await Future.delayed(const Duration(seconds: 2));
       await tester.enterText(find.byType(TextField).at(1), 'pass1234');
       await Future.delayed(const Duration(seconds: 3));
-      // Giriş butonuna tıkla
       await tester.tap(find.byType(ElevatedButton));
       await tester.pumpAndSettle();
-      // Anasayfada ürünleri ekrana getir
+
       expect(find.text('Laptop'), findsOneWidget);
       expect(find.text('1152.0${String.fromCharCode(36)}'), findsOneWidget);
       expect(find.text('Table'), findsOneWidget);
       expect(find.text('Earphone'), findsOneWidget);
       debugPrint('Test 4 Passed! : Login with username & pass1234');
       debugPrint('LOGIN - All Tests Passed!\n');
-      debugPrint('Directing to Home Page...\n');
+      debugPrint('Successfully open Home Page\n');
       // CART TEST
       debugPrint('CART TEST');
       await tester.tap(find.byIcon(Icons.shopping_cart));

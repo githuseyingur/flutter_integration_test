@@ -8,7 +8,7 @@ class ProductModel {
     required this.price,
   });
 
-  static final List<ProductModel> ProductList = [
+  static final productList = [
     ProductModel(name: 'Laptop', price: 1152.00),
     ProductModel(name: 'Monitor', price: 184.00),
     ProductModel(name: 'Table', price: 38.00),
@@ -16,5 +16,6 @@ class ProductModel {
     ProductModel(name: 'Mouse', price: 16.00),
     ProductModel(name: 'Earphone', price: 14.00),
   ];
-  static List<ProductModel> CartProductList = [];
+
+  static var cartProductList = <ProductModel>[];
 }

@@ -9,7 +9,7 @@ class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double total = 0;
-    for (var element in ProductModel.CartProductList) {
+    for (var element in ProductModel.cartProductList) {
       total += element.price;
     }
     double screenWidth = MediaQuery.of(context).size.width;
@@ -30,12 +30,11 @@ class CartView extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
         ),
-        actions: [],
       ),
       body: Column(
         children: [
           Expanded(
-            child: ProductModel.CartProductList.isEmpty
+            child: ProductModel.cartProductList.isEmpty
                 ? const Center(
                     child: Text(
                       'Cart is Empty.',
@@ -44,18 +43,19 @@ class CartView extends StatelessWidget {
                   )
                 : ListView.builder(
                     itemCount:
-                        ProductModel.CartProductList.toSet().toList().length,
+                        ProductModel.cartProductList.toSet().toList().length,
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: Row(
                           children: [
                             SizedBox(
                                 width: screenWidth * 0.3,
-                                child: Text(ProductModel.CartProductList.toSet()
+                                child: Text(ProductModel.cartProductList
+                                    .toSet()
                                     .toList()[index]
                                     .name)),
                             Text(
-                              'amount:${ProductModel.CartProductList.where((element) => element.name == ProductModel.CartProductList.toSet().toList()[index].name).toList().length.toString()}',
+                              'amount:${ProductModel.cartProductList.where((element) => element.name == ProductModel.cartProductList.toSet().toList()[index].name).toList().length.toString()}',
                               style: const TextStyle(
                                 color: Colors.black54,
                                 fontSize: 10,
@@ -64,16 +64,19 @@ class CartView extends StatelessWidget {
                           ],
                         ),
                         trailing: Text(
-                          (ProductModel.CartProductList.toSet()
+                          (ProductModel.cartProductList
+                                          .toSet()
                                           .toList()[index]
                                           .price *
-                                      ProductModel.CartProductList.where(
-                                          (element) =>
+                                      ProductModel.cartProductList
+                                          .where((element) =>
                                               element.name ==
-                                              ProductModel.CartProductList
-                                                      .toSet()
+                                              ProductModel.cartProductList
+                                                  .toSet()
                                                   .toList()[index]
-                                                  .name).toList().length)
+                                                  .name)
+                                          .toList()
+                                          .length)
                                   .toString() +
                               String.fromCharCode(36),
                           style: const TextStyle(
