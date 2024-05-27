@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:integrationtest/cart_view.dart';
 import 'package:integrationtest/model/product_model.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({super.key});
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +27,11 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.shopping_cart),
                 color: const Color(0xFFFFEBAE),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/cart');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CartView(),
+                      ));
                 },
               ),
               Positioned(

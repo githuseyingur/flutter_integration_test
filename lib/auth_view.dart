@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:integrationtest/home_view.dart';
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({super.key});
+class AuthView extends StatefulWidget {
+  const AuthView({super.key});
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  State<AuthView> createState() => _AuthViewState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _AuthViewState extends State<AuthView> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -128,7 +129,11 @@ class _AuthPageState extends State<AuthPage> {
                       setState(() {
                         isErrorVisible = false;
                       });
-                      Navigator.pushReplacementNamed(context, '/home');
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeView(),
+                          ));
                     } else {
                       setState(() {
                         isErrorVisible = true;

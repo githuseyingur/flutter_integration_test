@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:integrationtest/model/product_model.dart';
 
-class CartPage extends StatelessWidget {
+class CartView extends StatelessWidget {
   final List<String> cartItems = ['Apple', 'Banana'];
 
-  CartPage({super.key});
+  CartView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +18,11 @@ class CartPage extends StatelessWidget {
         centerTitle: true,
         foregroundColor: Colors.white,
         backgroundColor: const Color(0xFF6B9FE7),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(Icons.arrow_back)),
         title: const Text(
           'Cart',
           style: TextStyle(
@@ -25,6 +30,7 @@ class CartPage extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
         ),
+        actions: [],
       ),
       body: Column(
         children: [

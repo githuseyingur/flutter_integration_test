@@ -87,6 +87,12 @@ void main() {
       debugPrint('Directing to Home Page...\n');
       // CART TEST
       debugPrint('CART TEST');
+      await tester.tap(find.byIcon(Icons.shopping_cart));
+      await tester.pumpAndSettle();
+      expect(find.text('Cart is Empty.'), findsOneWidget);
+      await Future.delayed(const Duration(seconds: 2));
+      await tester.tap(find.byIcon(Icons.arrow_back));
+      await tester.pumpAndSettle();
       // TEST-1 : Add to Cart
       await Future.delayed(const Duration(seconds: 2));
       await tester.tap(find.widgetWithIcon(IconButton, Icons.add_circle).at(0));
