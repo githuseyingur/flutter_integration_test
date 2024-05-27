@@ -51,7 +51,7 @@ class CartPage extends StatelessWidget {
                             const Text(
                               'amount:',
                               style: TextStyle(
-                                color: Colors.black54,
+                                color: Colors.black45,
                                 fontSize: 10,
                               ),
                             ),
@@ -66,15 +66,17 @@ class CartPage extends StatelessWidget {
                         ),
                         trailing: Text(
                           (ProductModel.CartProductList.toSet()
-                                      .toList()[index]
-                                      .price *
-                                  ProductModel.CartProductList.where(
-                                      (element) =>
-                                          element.name ==
-                                          ProductModel.CartProductList.toSet()
-                                              .toList()[index]
-                                              .name).toList().length)
-                              .toString(),
+                                          .toList()[index]
+                                          .price *
+                                      ProductModel.CartProductList.where(
+                                          (element) =>
+                                              element.name ==
+                                              ProductModel.CartProductList
+                                                      .toSet()
+                                                  .toList()[index]
+                                                  .name).toList().length)
+                                  .toString() +
+                              String.fromCharCode(36),
                           style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
@@ -85,36 +87,44 @@ class CartPage extends StatelessWidget {
                   ),
           ),
           Container(
-            padding: EdgeInsets.all(12),
+            width: 200,
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             decoration: BoxDecoration(
-                color: Color(0xFFFFEBAE),
-                borderRadius: BorderRadius.circular(12)),
+                color: Colors.black45, borderRadius: BorderRadius.circular(4)),
             child: Text(
-              'TOTAL : $total',
+              'TOTAL : $total${String.fromCharCode(36)}',
               style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black87),
+                  color: Colors.white),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF6B9FE7)),
-              onPressed: () {
-                // Simulate a successful checkout
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Payment successful'),
-                    duration: Duration(seconds: 5),
-                  ),
-                );
-              },
-              child: const Text(
-                'PAYMENT',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+            padding: const EdgeInsets.only(top: 8, bottom: 60),
+            child: SizedBox(
+              width: 160,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF6B9FE7),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8))),
+                onPressed: () {
+                  // Simulate a successful checkout
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Payment Successful'),
+                      duration: Duration(seconds: 5),
+                    ),
+                  );
+                },
+                child: const Text(
+                  'PAYMENT',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16),
+                ),
               ),
             ),
           ),

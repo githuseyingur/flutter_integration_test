@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               IconButton(
                 icon: const Icon(Icons.shopping_cart),
-                color: Color(0xFFFFEBAE),
+                color: const Color(0xFFFFEBAE),
                 onPressed: () {
                   Navigator.pushNamed(context, '/cart');
                 },
@@ -57,7 +57,8 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    ProductModel.ProductList[index].price.toString(),
+                    ProductModel.ProductList[index].price.toString() +
+                        String.fromCharCode(36),
                     style: const TextStyle(
                         fontWeight: FontWeight.w400, fontSize: 14),
                   ),
