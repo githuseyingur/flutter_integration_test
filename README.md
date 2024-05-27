@@ -3,6 +3,7 @@
 <img src="https://github.com/githuseyingur/flutter_integration_test/assets/120099096/66ddfc7c-14e0-4a7e-bfa2-38056e846c94"  width="280" height ="560">
 <img src="https://github.com/githuseyingur/flutter_integration_test/assets/120099096/260758f6-5e44-4b27-8fc8-8810b15e36f4"  width="280" height ="560">
 <br><br>
+
 ```Dart
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
