@@ -142,7 +142,7 @@ class _AuthPageState extends State<AuthPage> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Color(0xFF6B9FE7),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 60,
                     )),

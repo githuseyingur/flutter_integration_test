@@ -1,29 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:integrationtest/model/product_model.dart';
 
-class HomePage extends StatelessWidget {
-  final List<String> products = ['Apple', 'Banana', 'Orange'];
-
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        centerTitle: true,
+        backgroundColor: const Color(0xFF6B9FE7),
         title: const Text(
-          'Home',
-          style: TextStyle(
-            color: Colors.white,
-          ),
+          'Products',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            color: Colors.white,
-            onPressed: () {
-              Navigator.pushNamed(context, '/cart');
-            },
+          Stack(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.shopping_cart),
+                color: Color(0xFFFFEBAE),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/cart');
+                },
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Text(
+                  '${ProductModel.CartProductList.length}',
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -31,6 +49,7 @@ class HomePage extends StatelessWidget {
         itemCount: ProductModel.ProductList.length,
         itemBuilder: (context, index) {
           return ListTile(
+            contentPadding: const EdgeInsets.only(left: 12),
             title: Text(ProductModel.ProductList[index].name),
             trailing: SizedBox(
               width: MediaQuery.of(context).size.width * 0.3,
@@ -43,16 +62,25 @@ class HomePage extends StatelessWidget {
                         fontWeight: FontWeight.w400, fontSize: 14),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.add),
+                    padding: EdgeInsets.zero,
+                    icon: const Icon(
+                      Icons.add_circle,
+                      color: Color.fromARGB(255, 80, 99, 127),
+                    ),
                     onPressed: () {
                       // Add product to cart
-                      ProductModel.CartProductList.add(
-                          ProductModel.ProductList[index]);
+                      setState(() {
+                        ProductModel.CartProductList.add(
+                            ProductModel.ProductList[index]);
+                      });
 
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                            content: Text(
-                                '${ProductModel.ProductList[index].name} added to cart')),
+                          content: Text(
+                              '${ProductModel.ProductList[index].name} added to cart'),
+                          duration: const Duration(seconds: 3),
+                        ),
                       );
                     },
                   ),
