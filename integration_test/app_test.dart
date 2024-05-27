@@ -10,10 +10,13 @@ void main() {
     // group: organizes related tests together for better structure and readability.
     testWidgets('Full App Test', (WidgetTester tester) async {
       app.main();
+
       await tester.pumpAndSettle();
+
       // LOGIN TEST
       debugPrint('LOGIN TEST');
       expect(find.text('LOG IN'), findsWidgets);
+
       // TEST-1 : Username validation error
       await tester.enterText(find.byType(TextField).at(0), 'user');
       await Future.delayed(const Duration(seconds: 2));
@@ -28,6 +31,7 @@ void main() {
           findsNothing);
 
       debugPrint('Test 1 Passed! : Username Validation Error');
+
       // TEST-2 : Password Validation Error
       await tester.enterText(find.byType(TextField).at(0), '');
       await tester.pumpAndSettle();
@@ -48,6 +52,7 @@ void main() {
       expect(find.text('cannot be smaller than 8 characters!'), findsNothing);
 
       debugPrint('Test 2 Passed! : Password Validation Error');
+
       // TEST-3 : Invalid Username or Password
       await tester.enterText(find.byType(TextField).at(0), '');
       await tester.pumpAndSettle();
@@ -66,6 +71,7 @@ void main() {
       await tester.pump();
       expect(find.text('Invalid username or password'), findsNothing);
       debugPrint('Test 3 Passed! : Wrong Password or Username');
+
       // TEST-4: Successful Login
       await tester.enterText(find.byType(TextField).at(0), 'username');
       await Future.delayed(const Duration(seconds: 2));
@@ -74,6 +80,7 @@ void main() {
       await tester.tap(find.byType(ElevatedButton));
       await tester.pumpAndSettle();
 
+      // Home Page
       expect(find.text('Laptop'), findsOneWidget);
       expect(find.text('1152.0${String.fromCharCode(36)}'), findsOneWidget);
       expect(find.text('Table'), findsOneWidget);
@@ -81,6 +88,7 @@ void main() {
       debugPrint('Test 4 Passed! : Login with username & pass1234');
       debugPrint('LOGIN - All Tests Passed!\n');
       debugPrint('Successfully open Home Page\n');
+
       // CART TEST
       debugPrint('CART TEST');
       await tester.tap(find.byIcon(Icons.shopping_cart));
